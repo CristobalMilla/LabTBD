@@ -1,8 +1,31 @@
 1
 2
-3
-4
-5
+3   Lista mensual de paises que mas gastan en volar (durante 4 años)
+
+    SELECT c.nacionalidad AS pais, 
+    EXTRACT(YEAR FROM p.fecha_ini_real) AS anio, 
+    EXTRACT(MONTH FROM p.fecha_ini_real) AS mes,
+    SUM(p.costo_pasaje) AS total_gastado
+    FROM Pasaje AS p
+    JOIN Cliente AS c 
+    ON c.dni_cliente = p.dni_cliente
+    WHERE p.fecha_ini_real >= current_date - INTERVAL '4 years'
+    GROUP BY c.nacionalidad, EXTRACT(YEAR FROM p.fecha_ini_real), EXTRACT(MONTH FROM p.fecha_ini_real)
+    ORDER BY anio, mes, total_gastado DESC;
+
+4   Lista de pasajeros que viajan en 'First Class' mas de 4 veces al mes
+    
+    SELECT p.dni_cliente, c.nombre_cliente,
+    EXTRACT(YEAR FROM p.fecha_ini_real) AS anio,
+    EXTRACT(MONTH FROM p.fecha_ini_real) AS mes,
+    COUNT(*) AS total_viajes_first_class
+    FROM Pasaje AS p
+    JOIN Cliente AS c ON c.dni_cliente = p.dni_cliente
+    WHERE p.seccion = 'First Class'
+    GROUP BY p.dni_cliente, c.nombre_cliente, 
+    EXTRACT(YEAR FROM p.fecha_ini_real), 
+    EXTRACT(MONTH FROM p.fecha_ini_real)
+    HAVING COUNT(*) > 4;
 6
 7
 8
