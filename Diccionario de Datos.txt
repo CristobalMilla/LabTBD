@@ -1,0 +1,72 @@
+1. Cliente (cliente):
+Campo			Tipo de Dato	Descripción
+dni_cliente		VARCHAR(10)	Identificación única del cliente, en vez de rut usamos este pq no todos tienen rut(PK).
+nombre_cliente		VARCHAR(30)	Nombre completo del cliente.
+fecha_nacimiento	DATE		Fecha de nacimiento del cliente.
+nacionalidad		VARCHAR(30)	Nacionalidad del cliente.
+
+2. Compañía (compania):
+Campo			Tipo de Dato	Descripción
+rut_compania		VARCHAR(10)	Identificación única de la compañía (PK).
+nombre_compania		VARCHAR(30)	Nombre de la compañía.
+
+3. Contrato Avión (contrato_avion):
+Campo			Tipo de Dato	Descripción
+id_contrato		INT		Identificación única del contrato (PK).
+patente_avion		VARCHAR(10)	Patente del avión (FK - avion).
+rut_compania		VARCHAR(10)	Identificación de la compañía (FK - compania).
+ini_contrato		DATE		Fecha de inicio del contrato.
+fin_contrato		DATE		Fecha de finalización del contrato.
+
+4. Avión (avion):
+Campo			Tipo de Dato	Descripción
+patente_avion		VARCHAR(10)	Identificación única del avión (PK).
+modelo			VARCHAR(30)	Modelo del avión.
+capacidad_economy	INT		Capacidad de asientos en clase económica.
+capacidad_premium	INT		Capacidad de asientos en clase premium.
+capacidad_business	INT		Capacidad de asientos en clase ejecutiva.
+capacidad_first_class	INT		Capacidad de asientos en primera clase.
+
+5. Vuelo (vuelo):
+Campo			Tipo de Dato	Descripción
+id_vuelo		INT		Identificación única del vuelo (PK).
+origen			VARCHAR(30)	Ciudad de origen del vuelo.
+destino			VARCHAR(30)	Ciudad de destino del vuelo.
+fecha_ini_aprox		DATE		Fecha aproximada de inicio del vuelo.
+fecha_fin_aprox		DATE		Fecha aproximada de fin del vuelo.
+patente_avion		VARCHAR(10)	Patente del avión utilizado (FK - avion).
+
+6. Pasaje (pasaje):
+Campo			Tipo de Dato	Descripción
+id_pasaje		INT		Identificación única del pasaje (PK).
+seccion			VARCHAR(30)	Sección del pasaje (economy, premium, etc.).
+costo_pasaje		INT		Costo del pasaje.
+fecha_ini_real		DATE		Fecha de inicio real del viaje.
+fecha_fin_real		DATE		Fecha de fin real del viaje.
+asiento			VARCHAR(5)	Identificador del asiento.
+id_vuelo		INT		Identificación del vuelo (FK - vuelo).
+dni_cliente		VARCHAR(10)	Identificación del cliente (FK - cliente).
+
+7. Cliente Vuelo (cliente_vuelo):
+Campo			Tipo de Dato	Descripción
+dni_cliente		VARCHAR(10)	Identificación del cliente (FK - cliente).
+id_vuelo		INT		Identificación del vuelo (FK - vuelo).
+
+8. Sueldo (sueldo):
+Campo			Tipo de Dato	Descripción
+id_sueldo		INT		Identificación única del registro de sueldo (PK).
+monto_total		INT		Monto total del sueldo.
+fecha_sueldo		DATE		Fecha en la que se pagó el sueldo.
+cargo			VARCHAR(30)	Cargo del empleado.
+dni_empleado		VARCHAR(10)	Identificación del empleado (FK - empleado).
+compania		VARCHAR(10)	Identificación de la compañía (FK - compania).
+
+9. Empleado (empleado):
+Campo			Tipo de Dato	Descripción
+dni_empleado		VARCHAR(10)	Identificación única del empleado (PK).
+nombre_empleado		VARCHAR(30)	Nombre del empleado.
+
+10. Vuelo Empleado (vuelo_empleado):
+Campo			Tipo de Dato	Descripción
+id_vuelo		INT		Identificación del vuelo (FK - vuelo).
+dni_empleado		VARCHAR(10)	Identificación del empleado (FK - empleado).
