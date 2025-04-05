@@ -43,10 +43,10 @@ INSERT INTO cliente VALUES
 ('CL007', 'Roberto Castro', '1995-12-01', 'Brasilena'),
 ('CL008', 'Carmen Rojas', '1990-08-14', 'Venezolana'),
 ('CL009', 'Santiago Medina', '1982-04-30', 'Uruguaya'),
-('CL010', 'Paola Gutierrez', '1996-06-25', 'Ecuatoriana'),
+('CL010', 'Paola Gutierrez', '1996-06-25', 'Argentina'),
 ('CL011', 'Gustavo Sanchez', '1989-10-08', 'Boliviana'),
 ('CL012', 'Natalia Duarte', '1997-01-19', 'Paraguaya'),
-('CL013', 'Esteban Herrera', '1994-05-07', 'Cubana'),
+('CL013', 'Esteban Herrera', '1994-05-07', 'Argentina'),
 ('CL014', 'Beatriz Vargas', '1992-12-03', 'Panamena'),
 ('CL015', 'Andres Molina', '1988-07-11', 'Salvadorena');
 
@@ -111,7 +111,11 @@ INSERT INTO cliente_vuelo VALUES
 ('CL012', 1012),
 ('CL013', 1013),
 ('CL014', 1014),
-('CL015', 1015);
+('CL015', 1015),
+('CL003', 1001),
+('CL003', 1005),
+('CL003', 1007),
+('CL003', 1012);
 
 INSERT INTO pasaje VALUES
 (2001, 'Economy', 300, '2024-06-10', '2024-06-11', '12A', 1001, 'CL001'),
@@ -138,7 +142,11 @@ INSERT INTO pasaje VALUES
 (2022, 'First Class', 1200, '2025-08-18', '2025-08-19', '2D', 1035, 'CL004'),
 (2023, 'First Class', 1300, '2025-08-05', '2025-08-06', '3D', 1038, 'CL004'),
 (2024, 'First Class', 1400, '2025-08-10', '2025-08-11', '3D', 1041, 'CL004'),
-(2025, 'First Class', 1100, '2025-08-03', '2025-08-04', '1D', 1043, 'CL004');
+(2025, 'First Class', 1100, '2025-08-03', '2025-08-04', '1D', 1043, 'CL004'),
+(2026, 'First Class', 1100, '2024-06-10', '2024-06-11', '8K', 1001, 'CL003'),
+(2027, 'Premium', 1500, '2024-10-05', '2024-10-06', '12K', 1005, 'CL003'),
+(2028, 'Economy', 800, '2024-12-15', '2024-12-16', '42K', 1007, 'CL003'),
+(2029, 'Economy', 700, '2025-05-30', '2025-05-31', '72K', 1012, 'CL003');
 
 INSERT INTO contrato_avion VALUES
 (101, 'AV001', 'C001', '2023-01-01', '2025-12-31'),
