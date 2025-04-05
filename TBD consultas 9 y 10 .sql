@@ -6,7 +6,7 @@ GROUP BY c.rut_compania
 ORDER BY sueldo_prom_pagado DESC;
 
 
-SELECT conteo_usos.compania, conteo_usos.modelo_avion, MAX(conteo_usos.usos_modelo) as modelo_mas_usado
+SELECT conteo_usos.compania, conteo_usos.modelo_avion, conteo_usos.usos_modelo as modelo_mas_usado
 	  -- cuenta los usos por modelo de avion de cada compañia
 FROM (SELECT c.nombre_compania as compania, c.rut_compania as rut, usos2021.modelo as modelo_avion, COUNT(*) as usos_modelo
 	  FROM (SELECT a.patente_avion as avion, ca.rut_compania as compania, a.modelo as modelo, ca.ini_contrato as ini_cont, ca.fin_contrato as fin_cont
@@ -38,4 +38,4 @@ INNER JOIN (SELECT cu.compania compania, MAX(cu.usos_modelo) as max_usos
 ON max_x_comp.compania = conteo_usos.compania
 -- toma las tuplas que tenga el modelo mas usado por compañia, que el numero de usos coincida con los usos del modelo mas usado de cada compañia
 WHERE max_x_comp.max_usos = conteo_usos.usos_modelo
-GROUP BY conteo_usos.compania, conteo_usos.modelo_avion;
+GROUP BY conteo_usos.compania, conteo_usos.modelo_avion, conteo_usos.usos_modelo;
