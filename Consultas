@@ -1,6 +1,6 @@
 1
 2
--- 3)   Lista mensual de paises que mas gastan en volar (durante 4 años)
+3   -- Lista mensual de paises que mas gastan en volar (durante 4 años)
 
     SELECT c.nacionalidad AS pais, 
     EXTRACT(YEAR FROM p.fecha_ini_real) AS anio, 
@@ -13,7 +13,7 @@
     GROUP BY c.nacionalidad, EXTRACT(YEAR FROM p.fecha_ini_real), EXTRACT(MONTH FROM p.fecha_ini_real)
     ORDER BY anio, mes, total_gastado DESC;
 
--- 4)  Lista de pasajeros que viajan en 'First Class' mas de 4 veces al mes
+4   -- Lista de pasajeros que viajan en 'First Class' mas de 4 veces al mes
     
     SELECT p.dni_cliente, c.nombre_cliente,
     EXTRACT(YEAR FROM p.fecha_ini_real) AS anio,
@@ -26,35 +26,14 @@
     EXTRACT(YEAR FROM p.fecha_ini_real), 
     EXTRACT(MONTH FROM p.fecha_ini_real)
     HAVING COUNT(*) > 4;
--- 5)
--- 6)
--- 7) Lista de compañías indicando cuál es el avión que más ha recaudado en los últimos
---    4 años y cuál es el monto recaudado
-    SELECT nombre_compania, patente_avion, total_recaudado
-    FROM (
-        SELECT c.nombre_compania, v.patente_avion, SUM(p.costo_pasaje) AS total_recaudado,
-            ROW_NUMBER() OVER (PARTITION BY c.nombre_compania ORDER BY SUM(p.costo_pasaje) DESC) AS enumeracion
-        FROM pasaje p
-        JOIN vuelo v ON p.id_vuelo = v.id_vuelo
-        JOIN contrato_avion ca ON v.patente_avion = ca.patente_avion
-        JOIN compania c ON c.rut_compania = ca.rut_compania
-        WHERE p.fecha_ini_real >= NOW() - INTERVAL '4 years'
-        GROUP BY c.nombre_compania, v.patente_avion
-    ) AS subconsulta
-    WHERE enumeracion = 1;
+5
+6
+7   -- Lista de compañías indicando cuál es el avión que más ha recaudado en los últimos 
+    -- 4 años y cuál es el monto recaudado.
+    SELECT
+8
 
-    -- * Expliación ROW_NUMBRER asigna números de fila únicos e incrementales 
-    -- empezando por "enumeracion = 1"
-    -- * El OVER vea a definir como se van a agrupar y ordenar
-    -- los numeros de la columna enumeracion
-    -- * PARTITION BY va a dividir los resultados en grupos basados en c.nombre_compania,
-    -- es decir, que cada compania va a tener su propia enumeracion
-    -- * ORDER BY SUM (p.costo_pasaje)DESC se ordena en base a el costo del pasaje en DESC,
-    -- es decir, que el numero de 1 en la columna enumeracion va a tener al coste que más recaudó
-
--- 8) Lista de compañías y total de aviones por año (en los últimos 10 años)
-
--- 9) Lista anual de compañias que en promedio han pagado mas a sus empleados (durante los últimos 10 años) 
+9   -- Lista anual de compañias que en promedio han pagado mas a sus empleados (durante los últimos 10 años) 
     SELECT c.nombre_compania, AVG(s.monto_total) as sueldo_prom_pagado
     FROM sueldo s
     INNER JOIN compania c on s.compania = c.rut_compania
@@ -62,7 +41,7 @@
     GROUP BY c.rut_compania
     ORDER BY sueldo_prom_pagado DESC;
 
--- 10) Modelo de avion mas usado por compañia durante 2021
+10  -- Modelo de avion mas usado por compañia durante 2021
 
     SELECT conteo_usos.compania, conteo_usos.modelo_avion, conteo_usos.usos_modelo as modelo_mas_usado
         -- cuenta los usos por modelo de avion de cada compañia
