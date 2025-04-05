@@ -70,6 +70,14 @@
     ORDER BY C.nombre_compania;
 
 -- 8) Lista de compañías y total de aviones por año (en los últimos 10 años)
+    SELECT C.nombre_compania, EXTRACT(YEAR FROM CA.ini_contrato) AS anio, 
+        COUNT(A.patente_avion) AS total_aviones
+    FROM compania C
+    JOIN contrato_avion CA ON C.rut_compania = CA.rut_compania
+    JOIN avion A ON CA.patente_avion = A.patente_avion
+    WHERE CA.ini_contrato BETWEEN '2015-01-01' AND '2025-12-31'
+    GROUP BY C.nombre_compania, anio
+    ORDER BY C.nombre_compania, anio;
 
 -- 9) Lista anual de compañias que en promedio han pagado mas a sus empleados (durante los últimos 10 años) 
     SELECT c.nombre_compania, AVG(s.monto_total) as sueldo_prom_pagado
