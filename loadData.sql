@@ -42,7 +42,7 @@ INSERT INTO cliente VALUES
 ('CL006', 'Laura Fernandez', '1987-02-20', 'Peruana'),
 ('CL007', 'Roberto Castro', '1995-12-01', 'Brasilena'),
 ('CL008', 'Carmen Rojas', '1990-08-14', 'Venezolana'),
-('CL009', 'Santiago Medina', '1982-04-30', 'Uruguaya'),
+('CL009', 'Santiago Medina', '1982-04-30', 'Chilena'),
 ('CL010', 'Paola Gutierrez', '1996-06-25', 'Argentina'),
 ('CL011', 'Gustavo Sanchez', '1989-10-08', 'Boliviana'),
 ('CL012', 'Natalia Duarte', '1997-01-19', 'Paraguaya'),
