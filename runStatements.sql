@@ -45,27 +45,29 @@
 
 -- 7) Lista de compañías indicando cuál es el avión que más ha recaudado en los últimos
 --    4 años y cuál es el monto recaudado
-    SELECT nombre_compania, patente_avion, total_recaudado
-    FROM (
-        SELECT c.nombre_compania, v.patente_avion, SUM(p.costo_pasaje) AS total_recaudado,
-            ROW_NUMBER() OVER (PARTITION BY c.nombre_compania ORDER BY SUM(p.costo_pasaje) DESC) AS enumeracion
-        FROM pasaje p
-        JOIN vuelo v ON p.id_vuelo = v.id_vuelo
-        JOIN contrato_avion ca ON v.patente_avion = ca.patente_avion
-        JOIN compania c ON c.rut_compania = ca.rut_compania
-        WHERE p.fecha_ini_real >= NOW() - INTERVAL '4 years'
-        GROUP BY c.nombre_compania, v.patente_avion
-    ) AS subconsulta
-    WHERE enumeracion = 1;
-
-    -- * Expliación ROW_NUMBRER asigna números de fila únicos e incrementales 
-    -- empezando por "enumeracion = 1"
-    -- * El OVER vea a definir como se van a agrupar y ordenar
-    -- los numeros de la columna enumeracion
-    -- * PARTITION BY va a dividir los resultados en grupos basados en c.nombre_compania,
-    -- es decir, que cada compania va a tener su propia enumeracion
-    -- * ORDER BY SUM (p.costo_pasaje)DESC se ordena en base a el costo del pasaje en DESC,
-    -- es decir, que el numero de 1 en la columna enumeracion va a tener al coste que más recaudó
+    SELECT C.nombre_compania, SubConsulta1.patente_avion, SubConsulta1.total_recaudado
+    FROM compania C
+    JOIN (
+        SELECT CA.rut_compania, v.patente_avion, SUM(p.costo_pasaje) AS total_recaudado
+        FROM pasaje P
+        JOIN vuelo V ON P.id_vuelo = V.id_vuelo
+        JOIN contrato_avion CA ON V.patente_avion = CA.patente_avion
+        WHERE P.fecha_ini_real BETWEEN '2022-01-01' AND '2025-12-31'
+        GROUP BY CA.rut_compania, V.patente_avion
+        ) AS SubConsulta1 ON C.rut_compania = SubConsulta1.rut_compania
+    WHERE SubConsulta1.total_recaudado = (
+        SELECT MAX(SubConsulta2.total_recaudado)
+        FROM (
+            SELECT CA2.rut_compania, V2.patente_avion, SUM(P2.costo_pasaje) AS total_recaudado
+            FROM pasaje P2
+            JOIN vuelo V2 ON P2.id_vuelo = V2.id_vuelo
+            JOIN contrato_avion CA2 ON V2.patente_avion = CA2.patente_avion
+            WHERE P2.fecha_ini_real BETWEEN '2022-01-01' AND '2025-12-31'
+            GROUP BY CA2.rut_compania, V2.patente_avion
+        ) AS SubConsulta2
+        WHERE SubConsulta2.rut_compania = SubConsulta1.rut_compania
+    )
+    ORDER BY C.nombre_compania;
 
 -- 8) Lista de compañías y total de aviones por año (en los últimos 10 años)
 
