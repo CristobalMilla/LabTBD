@@ -1,6 +1,6 @@
 1
 2
-3   Lista mensual de paises que mas gastan en volar (durante 4 años)
+-- 3   Lista mensual de paises que mas gastan en volar (durante 4 años)
 
     SELECT c.nacionalidad AS pais, 
     EXTRACT(YEAR FROM p.fecha_ini_real) AS anio, 
@@ -13,7 +13,7 @@
     GROUP BY c.nacionalidad, EXTRACT(YEAR FROM p.fecha_ini_real), EXTRACT(MONTH FROM p.fecha_ini_real)
     ORDER BY anio, mes, total_gastado DESC;
 
-4   Lista de pasajeros que viajan en 'First Class' mas de 4 veces al mes
+-- 4   Lista de pasajeros que viajan en 'First Class' mas de 4 veces al mes
     
     SELECT p.dni_cliente, c.nombre_cliente,
     EXTRACT(YEAR FROM p.fecha_ini_real) AS anio,
@@ -26,11 +26,12 @@
     EXTRACT(YEAR FROM p.fecha_ini_real), 
     EXTRACT(MONTH FROM p.fecha_ini_real)
     HAVING COUNT(*) > 4;
-6
-7
-8
+-- 5
+-- 6
+-- 7
+-- 8
 
-9   -- Lista anual de compañias que en promedio han pagado mas a sus empleados (durante los últimos 10 años) 
+-- 9 Lista anual de compañias que en promedio han pagado mas a sus empleados (durante los últimos 10 años) 
     SELECT c.nombre_compania, AVG(s.monto_total) as sueldo_prom_pagado
     FROM sueldo s
     INNER JOIN compania c on s.compania = c.rut_compania
@@ -38,7 +39,7 @@
     GROUP BY c.rut_compania
     ORDER BY sueldo_prom_pagado DESC;
 
-10  -- Modelo de avion mas usado por compañia durante 2021
+-- 10 Modelo de avion mas usado por compañia durante 2021
 
     SELECT conteo_usos.compania, conteo_usos.modelo_avion, conteo_usos.usos_modelo as modelo_mas_usado
         -- cuenta los usos por modelo de avion de cada compañia

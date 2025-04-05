@@ -1,0 +1,49 @@
+Consultas SQL Control 5 y 6:
+5. Avión con menos vuelos.
+
+SELECT  avion.patente_avion AS avion, COUNT(*) AS Nro_de_Vuelos
+FROM Vuelo 
+LEFT JOIN avion ON vuelo.patente_avion = avion.patente_avion
+GROUP BY avion.patente_avion
+ORDER BY COUNT(*) ASC
+
+6. Lista mensual de pilotos con mayor sueldo (durante los últimos 4 años).
+
+SELECT empleado.nombre_empleado AS Empleado, SUM(Sueldo.monto_total) AS Sueldo
+FROM empleado
+INNER JOIN sueldo ON empleado.dni_empleado = sueldo.dni_empleado
+--fecha de ejemplo
+WHERE sueldo.fecha_sueldo BETWEEN '2021-04-04' AND '2025-04-04'
+GROUP BY Empleado.dni_empleado
+
+Vuelos adicionales:
+INSERT INTO vuelo VALUES
+(1016, 'Mexico City', 'New York', '2025-06-01', '2025-06-02', 'AV001'),
+(1017, 'Santiago', 'Buenos Aires', '2025-06-20', '2025-06-21', 'AV001'),
+(1018, 'Bogota', 'Miami', '2025-07-01', '2025-07-02', 'AV001'),
+(1019, 'Rio de Janeiro', 'Paris', '2025-07-15', '2025-07-16', 'AV001'),
+(1020, 'Los Angeles', 'Toronto', '2025-07-05', '2025-07-06', 'AV002'),
+(1021, 'Frankfurt', 'Rome', '2025-07-20', '2025-07-21', 'AV002'),
+(1022, 'London', 'Dubai', '2025-08-01', '2025-08-02', 'AV002'),
+(1023, 'Mexico City', 'Madrid', '2025-06-25', '2025-06-26', 'AV003'),
+(1024, 'Buenos Aires', 'Berlin', '2025-08-10', '2025-08-11', 'AV003'),
+(1025, 'Toronto', 'Tokyo', '2025-06-15', '2025-06-16', 'AV004'),
+(1026, 'New York', 'Sydney', '2025-07-30', '2025-07-31', 'AV005'),
+(1027, 'Lima', 'Chicago', '2025-08-05', '2025-08-06', 'AV005'),
+(1028, 'Sao Paulo', 'Paris', '2025-08-12', '2025-08-13', 'AV005'),
+(1029, 'Frankfurt', 'Los Angeles', '2025-09-01', '2025-09-02', 'AV005'),
+(1030, 'Berlin', 'Madrid', '2025-09-20', '2025-09-21', 'AV005'),
+(1031, 'Santiago', 'Rome', '2025-06-30', '2025-07-01', 'AV006'),
+(1032, 'Mexico City', 'London', '2025-07-12', '2025-07-13', 'AV006'),
+(1033, 'Bogota', 'Sydney', '2025-08-25', '2025-08-26', 'AV006'),
+(1034, 'Toronto', 'Hong Kong', '2025-06-10', '2025-06-11', 'AV007'),
+(1035, 'Madrid', 'Beijing', '2025-08-18', '2025-08-19', 'AV007'),
+(1036, 'Rio de Janeiro', 'New York', '2025-07-01', '2025-07-02', 'AV008'),
+(1037, 'Paris', 'Los Angeles', '2025-07-25', '2025-07-26', 'AV008'),
+(1038, 'Santiago', 'Tokyo', '2025-08-05', '2025-08-06', 'AV008'),
+(1039, 'Buenos Aires', 'Rome', '2025-08-30', '2025-08-31', 'AV008'),
+(1040, 'Mexico City', 'Berlin', '2025-06-15', '2025-06-16', 'AV009'),
+(1041, 'Lima', 'Paris', '2025-08-10', '2025-08-11', 'AV009'),
+(1042, 'London', 'Los Angeles', '2025-07-15', '2025-07-16', 'AV010'),
+(1043, 'New York', 'Buenos Aires', '2025-08-03', '2025-08-04', 'AV010'),
+(1044, 'Berlin', 'Hong Kong', '2025-08-22', '2025-08-23', 'AV010');
