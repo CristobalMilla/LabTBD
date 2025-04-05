@@ -1,0 +1,11 @@
+Cambios al modelo base:
+-se creo la entidad contrato avión
+-se añadió la tabla intermedia cliente_comp entre Cliente y Compañia
+-se añadió la relación de uno a muchos entre Avión y Vuelo
+-se cambió el nombre de la tabla intermedia cliente_comp entre cliente y vuelo a Cliente_Vuelo
+-la entidad Modelo pasó a ser un atributo de avión
+-la entidad Costo pasó a ser un atributo de pasaje
+-la entidad Sección paso a ser atributo de pasaje
+-se elimina la relación entre Vuelo y Compañía
+-se unen las entidades Sueldo y Compañía
+-la entidad cliente se conecta a pasaje para conectarse con vuelo
