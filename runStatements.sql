@@ -1,5 +1,24 @@
-1
-2
+-- 1) Lista de lugares al que viajan mas chilenos por año (durante los ultimos 4 años)
+    SELECT DISTINCT ON (anio) anio, destino, total_visitas -- DISTINCT es necesario para no escribir los 4 años por separados, u ocupar un loop, tomando solo el primer elemento de cada año
+    FROM (
+        SELECT EXTRACT(YEAR FROM v.fecha_fin_aprox) AS anio, v.destino, COUNT(*) AS total_visitas
+        FROM cliente c
+        JOIN cliente_vuelo cv ON c.dni_cliente = cv.dni_cliente
+        JOIN vuelo v ON cv.id_vuelo = v.id_vuelo
+        WHERE c.nacionalidad = 'Chilena' AND v.fecha_fin_aprox >= CURRENT_DATE - INTERVAL '4 years' --Esta ultima variable puede cambiarse dependiendo de las dechas
+        GROUP BY anio, v.destino
+        ORDER BY anio, COUNT(*) DESC
+    ) AS visitas
+    ORDER BY anio, total_visitas DESC;
+
+-- 2) Lista con las secciones de vuelo mas compradas por argentinos
+    SELECT p.seccion, COUNT(*) AS total_seccion
+    FROM cliente c
+    JOIN pasaje p ON c.dni_cliente = p.dni_cliente
+    WHERE c.nacionalidad = 'Argentina'
+    GROUP BY p.seccion
+    ORDER BY total_seccion DESC;
+
 -- 3)   Lista mensual de paises que mas gastan en volar (durante 4 años)
 
     SELECT c.nacionalidad AS pais, 
