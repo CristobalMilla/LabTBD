@@ -26,8 +26,23 @@
     EXTRACT(YEAR FROM p.fecha_ini_real), 
     EXTRACT(MONTH FROM p.fecha_ini_real)
     HAVING COUNT(*) > 4;
--- 5)
--- 6)
+-- 5) Avión con menos vuelos.
+
+    SELECT  avion.patente_avion AS avion, COUNT(*) AS Nro_de_Vuelos
+    FROM Vuelo 
+    LEFT JOIN avion ON vuelo.patente_avion = avion.patente_avion
+    GROUP BY avion.patente_avion
+    ORDER BY COUNT(*) ASC
+
+-- 6) Lista mensual de pilotos con mayor sueldo (durante los últimos 4 años).
+
+    SELECT empleado.nombre_empleado AS Empleado, SUM(Sueldo.monto_total) AS Sueldo
+    FROM empleado
+    INNER JOIN sueldo ON empleado.dni_empleado = sueldo.dni_empleado
+    -- fecha de ejemplo
+    WHERE sueldo.fecha_sueldo BETWEEN '2021-04-04' AND '2025-04-04'
+    GROUP BY Empleado.dni_empleado
+
 -- 7) Lista de compañías indicando cuál es el avión que más ha recaudado en los últimos
 --    4 años y cuál es el monto recaudado
     SELECT nombre_compania, patente_avion, total_recaudado
