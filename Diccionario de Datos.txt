@@ -70,3 +70,9 @@ nombre_empleado		VARCHAR(30)	Nombre del empleado.
 Campo			Tipo de Dato	Descripción
 id_vuelo		INT		Identificación del vuelo (FK - vuelo).
 dni_empleado		VARCHAR(10)	Identificación del empleado (FK - empleado).
+
+11. Cliente Compañía (cliente_compania):
+Campo			Tipo de Dato	Descripción
+dni_cliente		VARCHAR(10)	Identificación del cliente (FK - cliente).
+rut_compania		VARCHAR(10)	Identificación de la compañía (FK - compania).
+
