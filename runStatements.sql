@@ -102,7 +102,7 @@
     SELECT c.nombre_compania, AVG(s.monto_total) as sueldo_prom_pagado
     FROM sueldo s
     INNER JOIN compania c on s.compania = c.rut_compania
-    WHERE s.fecha_sueldo BETWEEN '2015-04-03' AND '2025-04-04'
+    WHERE s.fecha_sueldo BETWEEN '2016-01-01' AND '2025-12-31'
     GROUP BY c.rut_compania
     ORDER BY sueldo_prom_pagado DESC;
 
